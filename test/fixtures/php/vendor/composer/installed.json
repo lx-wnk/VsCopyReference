@@ -1,0 +1,17 @@
+{
+    "packages": [
+        {
+            "name": "acme/util",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "type": "library",
+            "autoload": {
+                "psr-4": { "Acme\\Util\\": "src/" },
+                "files": ["src/FloatComparator.php"]
+            },
+            "install-path": "../acme/util"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

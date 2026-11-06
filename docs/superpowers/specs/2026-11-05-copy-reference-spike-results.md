@@ -85,7 +85,7 @@ Resolution state: immediate 0/7; afterPolling 6/7 (only `baseMethod` still empty
 | `compare` | 0 | 1 `Location` `src/Comparable.php` range `6:20-6:27` (name only) | 1 |
 | `$local` | 0 | 1 `Location` `src/Caller.php` range `17:8-17:14` | 1 |
 
-PHP Tools resolves only same-file or same-namespace-sibling targets in this environment and nothing across `use` imports, `vendor/`, or `Child` inheritance. Its `Location` range for `compare` is the name only (`6:20-6:27`), not the declaration.
+In this original run (fixture without Composer metadata) the data backs only `compare` and `$local` resolving; the other five tokens returned nothing (cause: see the rerun section below). Its `Location` range for `compare` is the name only (`6:20-6:27`), not the declaration.
 
 ### TS built-in (after polling; all 1 result, all `LocationLink`)
 
@@ -107,9 +107,21 @@ VERIFIED: closed `vendor/` files do return symbols, but the first file touched c
 
 - Intelephense: 0 of 7 `immediate`, 6 of 7 `afterPolling`, 7 of 7 `afterWait`. The inherited vendor target (`baseMethod` via `Child`) was still empty after the symbol-polling phase and resolved only after an additional pass following a 30 s wait; the exact time it became ready is unmeasured (between the end of polling and +30 s). Empty arrays are returned without error.
 - TS (JS): `immediate` was partly wrong, not just empty. `round`, `Calc`, `add` returned `[]`; `cfg`, `b`, `withLocal`, `tinyFn` already resolved correctly. After polling all 7 are correct. VERIFIED from `definitionsImmediate` vs `definitionsAfterPolling`.
-- PHP Tools: 0 of 7 immediate, 2 of 7 after polling and after +30 s. Waiting does not help for the 5 cross-file tokens.
+- PHP Tools (original run, fixture without Composer metadata): 0 of 7 immediate, 2 of 7 after polling and after +30 s. With `installed.json` present: 0, 2, 7 of 7 (see the rerun section).
 
 An empty definition result is not final: inherited vendor resolution needed more than one pass and up to 30 s. A retry policy (interval and bound) is not derivable from this data; measuring it needs a finer-grained poll of `baseMethod` (HYPOTHESIS: it is ready within a few seconds; check: poll every 500 ms and log the first non-empty result).
+
+## PHP Tools rerun with Composer metadata
+
+Source data: `docs/superpowers/specs/spike-data/phptools-with-composer-metadata.json`. Same fixture plus `test/fixtures/php/vendor/composer/installed.json` (registers `acme/util`, PSR-4 `Acme\Util\` and the `files` entry).
+
+| Phase | Tokens with a definition |
+|---|---|
+| `definitionsImmediate` | 0 of 7 |
+| `definitionsAfterPolling` | 2 of 7 (`compare`, `$local`) |
+| `definitionsAfterWait` (+30 s) | 7 of 7 (`lessThanOrEquals`, `EPSILON`, `tolerance`, `helper`, `baseMethod`, `compare`, `$local`) |
+
+VERIFIED: the earlier 5/7-empty result was a fixture defect. VERIFIED: PHP Tools needed longer than the polling phase for the cross-file tokens; the exact time to readiness is unmeasured (between end of polling and +30 s).
 
 ## 7. Impact on the plan
 
@@ -121,6 +133,7 @@ Task 2 `baseName` / `selectChain`:
 - VERIFIED: parameters and locals appear as Variable symbols in Intelephense and TS; chain selection must ignore kind Variable children when the target is a method.
 
 Task 3 PHP namespace handling:
+- Task 3 namespace regex dropped (controller ruling): both providers report a Namespace symbol (PHP Tools as parent, Intelephense as preceding one-line sibling), so the PHP formatter takes the namespace from the parent Namespace symbol or the nearest preceding Namespace sibling.
 - VERIFIED: namespace is never part of the class name or `detail`; it is a Namespace-kind symbol (name `Acme\Util`, already with backslashes). Build `\Acme\Util\FloatComparator::lessThanOrEquals` by joining Namespace name, class name and member name.
 - VERIFIED: for Intelephense take the nearest preceding top-level Namespace symbol in the same document; for PHP Tools take the enclosing parent. Multiple namespaces per file are not covered by the fixtures. HYPOTHESIS for multi-namespace files; cheapest check: add a two-namespace fixture and rerun the spike.
 - VERIFIED: global functions in a namespace (`helper`) appear under the namespace (PHP Tools child, Intelephense sibling), so `\Acme\Util\helper` is derivable.
@@ -128,5 +141,5 @@ Task 3 PHP namespace handling:
 `vendor/` support:
 - VERIFIED: documentSymbol on closed `vendor/` files works for both PHP providers, with about 2 s warm-up on first touch (first file only); use a bounded retry.
 - VERIFIED: Intelephense definitions into `vendor/` work, direct ones by afterPolling, inherited `baseMethod` only by afterWait (+30 s). Do not assume a short retry suffices; the needed bound is unmeasured.
-- OPEN, INCONCLUSIVE until the owner's F12 check in normal VS Code: VERIFIED only that PHP Tools definitions into `vendor/` and across `use` imports returned nothing in the test host, immediately, after polling and after 30 s. HYPOTHESIS: caused by the test environment (no `php` binary, no licence, indexing disabled in a fresh profile) and not by PHP Tools itself. Cheapest check: run the same fixture in the owner's normal VS Code with PHP Tools installed and licensed, F12 on `lessThanOrEquals` in `Caller.php`.
+- PHP Tools `vendor/` definitions: cause of the earlier 5/7-empty result VERIFIED as the missing `vendor/composer/installed.json` in the fixture (fixture defect, see rerun section). With it present all 7 tokens resolved, but only after the +30 s wait; the polling phase was not enough. Real-project behaviour is still to be confirmed by the owner's F12 check in a real Shopware project (HYPOTHESIS until then; cheapest check: F12 on `lessThanOrEquals` in a real `Caller`-style file).
 - HYPOTHESIS: `compare` on a typed receiver yields only the interface method; the plan's "implementations" case would need `vscode.executeImplementationProvider`. Cheapest check: call it at the same position in the spike.
