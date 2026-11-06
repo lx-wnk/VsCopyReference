@@ -52,3 +52,9 @@ When no symbol reference can be produced, the clipboard gets `path:line`:
 - A call on an interface method copies the interface method.
 - In multi-root workspaces, paths omit the folder name.
 - A symbol nested inside a function (an inner function, or a local variable inside a function or arrow function) gives the fallback. Enum members and namespace members are references (`Color.Red`, `N.x`).
+
+## Development
+
+- `npm run test:unit` runs the unit tests.
+- `npm run test:docker` runs unit and integration tests headless in Docker (Xvfb), without opening VS Code windows. CI runs the same image.
+- Integration tests always use the latest VS Code, PHP Tools and Intelephense. If CI turns red without a change in this repository, check for a new release of one of them first.
