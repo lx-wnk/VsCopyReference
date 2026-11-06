@@ -1,4 +1,5 @@
 import * as cp from 'child_process';
+import * as os from 'os';
 import * as path from 'path';
 import {
     downloadAndUnzipVSCode,
@@ -32,7 +33,7 @@ async function main(): Promise<void> {
     );
     const fixture = path.join(root, 'test/fixtures', FIXTURES[provider]);
     const extensionsDir = path.join(root, `.vscode-test/extensions-${provider}`);
-    const userDataDir = path.join(root, `.vscode-test/user-${provider}`);
+    const userDataDir = path.join(os.tmpdir(), `cr-user-${provider}`);
 
     const vscodeExecutablePath = await downloadAndUnzipVSCode();
     const providerExtension = PROVIDER_EXTENSIONS[provider];

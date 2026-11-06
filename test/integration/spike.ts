@@ -32,6 +32,7 @@ const JS_SYMBOL_FILES = ['src/math.js', 'node_modules/tiny/index.js'];
 
 const POLL_INTERVAL_MS = 2000;
 const POLL_LIMIT_MS = 60000;
+const EXTRA_WAIT_MS = 30000;
 
 let workspaceRoot: string;
 
@@ -160,6 +161,8 @@ export async function run(): Promise<void> {
         symbols.push(await measureSymbols(file));
     }
     const definitionsAfterPolling = await measureDefinitions(usages);
+    await sleep(EXTRA_WAIT_MS);
+    const definitionsAfterWait = await measureDefinitions(usages);
 
     const outFile = path.resolve(__dirname, '../../spike', `${provider}.json`);
     fs.mkdirSync(path.dirname(outFile), { recursive: true });
@@ -168,6 +171,7 @@ export async function run(): Promise<void> {
         vscodeVersion: vscode.version,
         definitionsImmediate,
         definitionsAfterPolling,
+        definitionsAfterWait,
         symbols,
     }, null, 2));
 
