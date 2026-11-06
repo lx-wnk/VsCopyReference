@@ -5,7 +5,8 @@
     "strict": true,
     "rootDir": ".",
     "outDir": "out",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node", "vscode"]
   },
   "include": ["src", "test"],
   "exclude": ["test/fixtures", "node_modules"]
