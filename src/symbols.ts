@@ -55,8 +55,9 @@ export function selectChain(
     // Intelephense emits namespaces as one-line siblings preceding the declarations.
     const namespace = symbols
         .filter(s => s.kind === 'namespace'
-            && compare(s.range.start, root.range.start) < 0
-            && !contains(s.range, root.range.start))
+            && s.children.length === 0
+            && s.range.start.line === s.range.end.line
+            && compare(s.range.start, root.range.start) < 0)
         .sort((a, b) => compare(b.range.start, a.range.start))[0];
     return namespace ? [namespace, ...chain] : chain;
 }

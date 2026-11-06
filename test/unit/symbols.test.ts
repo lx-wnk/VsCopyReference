@@ -98,3 +98,23 @@ test('baseName strips sigils, call parens and namespaces', () => {
     assert.equal(baseName('lessThanOrEquals()'), 'lessThanOrEquals');
     assert.equal(baseName('Acme\\Util\\Foo'), 'Foo');
 });
+
+test('does not prepend a closed multi-line namespace with children', () => {
+    const closedNsTree = [
+        sym('Foo', 'namespace', p(0, 0), p(5, 1), [
+            sym('Inner', 'class', p(1, 2), p(4, 3)),
+        ]),
+        sym('Bar', 'class', p(7, 0), p(12, 1)),
+    ];
+    assert.deepEqual(names(selectChain(closedNsTree, p(7, 8), 'Bar', false)), ['Bar']);
+});
+
+test('does not prepend a single-line namespace that has children', () => {
+    const tree = [
+        sym('Foo', 'namespace', p(0, 0), p(0, 30), [
+            sym('Inner', 'class', p(0, 10), p(0, 25)),
+        ]),
+        sym('Bar', 'class', p(2, 0), p(6, 1)),
+    ];
+    assert.deepEqual(names(selectChain(tree, p(2, 8), 'Bar', false)), ['Bar']);
+});
