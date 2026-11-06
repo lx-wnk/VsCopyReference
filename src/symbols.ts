@@ -43,7 +43,9 @@ export function selectChain(
         return undefined;
     }
     if (chain.slice(0, -1).some(s => s.kind === 'function' || s.kind === 'method')
-        || chain.slice(1).some(s => s.kind === 'variable')) {
+        || chain.some((s, i) => (s.kind === 'variable' || s.kind === 'property')
+            && i + 1 < chain.length
+            && chain[i + 1].kind !== 'property' && chain[i + 1].kind !== 'method')) {
         return undefined;
     }
     return chain;

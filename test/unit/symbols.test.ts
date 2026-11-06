@@ -1,6 +1,5 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { phpName } from '../../src/languages/php';
 import { Kind, Pos, selectChain, SymbolNode } from '../../src/symbols';
 
 const p = (line: number, character: number): Pos => ({ line, character });
@@ -13,6 +12,7 @@ const sym = (
     selectionRange: { start: selStart, end: p(selStart.line, selStart.character + name.length) },
     children,
 });
+const phpName = (n: string) => n.replace(/\(\)$/, '');
 const names = (chain: SymbolNode[] | undefined) => chain?.map(s => s.name);
 
 const tree = [
@@ -89,4 +89,31 @@ test('local variable under a variable root is rejected', () => {
         ]),
     ];
     assert.equal(selectChain(localTree, p(2, 6), 'local', false), undefined);
+});
+
+test('enum member under a class-kind enum is kept', () => {
+    const t = [sym('Color', 'class', p(0, 0), p(3, 1), [sym('Red', 'variable', p(1, 2), p(1, 5))])];
+    assert.deepEqual(names(selectChain(t, p(1, 3), 'Red', false)), ['Color', 'Red']);
+});
+
+test('namespace member is kept', () => {
+    const t = [sym('N', 'namespace', p(0, 0), p(3, 1), [sym('x', 'variable', p(1, 2), p(1, 20))])];
+    assert.deepEqual(names(selectChain(t, p(1, 3), 'x', false)), ['N', 'x']);
+});
+
+test('function inside an arrow-function variable is rejected', () => {
+    const t = [sym('handler2', 'variable', p(0, 0), p(4, 1), [sym('innerFn', 'function', p(1, 2), p(3, 3))])];
+    assert.equal(selectChain(t, p(1, 3), 'innerFn', false), undefined);
+});
+
+test('local variable under an arrow class property is rejected', () => {
+    const t = [sym('Foo', 'class', p(0, 0), p(8, 1), [
+        sym('cb', 'property', p(1, 2), p(6, 3), [sym('l', 'variable', p(2, 4), p(2, 20))]),
+    ])];
+    assert.equal(selectChain(t, p(2, 5), 'l', false), undefined);
+});
+
+test('method of an object literal stays chained', () => {
+    const t = [sym('cfg', 'variable', p(0, 0), p(4, 1), [sym('m', 'method', p(1, 2), p(3, 3))])];
+    assert.deepEqual(names(selectChain(t, p(1, 3), 'm', false)), ['cfg', 'm']);
 });
