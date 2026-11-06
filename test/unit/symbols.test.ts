@@ -9,7 +9,7 @@ const sym = (
 ): SymbolNode => ({
     name, kind, detail: '',
     range: { start, end },
-    selectionRange: { start: selStart, end: selStart },
+    selectionRange: { start: selStart, end: p(selStart.line, selStart.character + name.length) },
     children,
 });
 const names = (chain: SymbolNode[] | undefined) => chain?.map(s => s.name);
@@ -76,7 +76,7 @@ test('prepends the nearest namespace when several precede', () => {
         sym('B', 'namespace', p(10, 0), p(10, 12)),
         sym('Foo', 'class', p(12, 0), p(20, 1)),
     ];
-    assert.deepEqual(names(selectChain(twoNsTree, p(12, 8), 'Foo', false)), ['B', 'Foo']);
+    assert.deepEqual(names(selectChain(twoNsTree, p(12, 1), 'Foo', false)), ['B', 'Foo']);
 });
 
 test('does not prepend when the root is already a namespace (PHP Tools shape)', () => {
@@ -106,7 +106,7 @@ test('does not prepend a closed multi-line namespace with children', () => {
         ]),
         sym('Bar', 'class', p(7, 0), p(12, 1)),
     ];
-    assert.deepEqual(names(selectChain(closedNsTree, p(7, 8), 'Bar', false)), ['Bar']);
+    assert.deepEqual(names(selectChain(closedNsTree, p(7, 1), 'Bar', false)), ['Bar']);
 });
 
 test('does not prepend a single-line namespace that has children', () => {
@@ -116,5 +116,28 @@ test('does not prepend a single-line namespace that has children', () => {
         ]),
         sym('Bar', 'class', p(2, 0), p(6, 1)),
     ];
-    assert.deepEqual(names(selectChain(tree, p(2, 8), 'Bar', false)), ['Bar']);
+    assert.deepEqual(names(selectChain(tree, p(2, 1), 'Bar', false)), ['Bar']);
+});
+
+const phpTree = [
+    sym('Decorator', 'class', p(0, 0), p(20, 1), [
+        sym('load()', 'method', p(2, 4), p(10, 5), [], p(2, 20)),
+    ]),
+];
+
+test('call to a same-named method inside its own body yields undefined', () => {
+    assert.equal(selectChain(phpTree, p(6, 15), 'load', false), undefined);
+});
+
+test('cursor on the declaration name still selects the chain', () => {
+    assert.deepEqual(names(selectChain(phpTree, p(2, 22), 'load', false)), ['Decorator', 'load()']);
+});
+
+test('local variable under a variable root is rejected', () => {
+    const localTree = [
+        sym('handler', 'variable', p(0, 0), p(6, 1), [
+            sym('local', 'variable', p(2, 4), p(2, 20)),
+        ]),
+    ];
+    assert.equal(selectChain(localTree, p(2, 6), 'local', false), undefined);
 });

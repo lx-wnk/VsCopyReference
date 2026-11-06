@@ -40,12 +40,15 @@ export function selectChain(
     if (!tail) {
         return undefined;
     }
-    const nameMatches = identifier !== undefined && baseName(identifier) === baseName(tail.name);
+    const nameMatches = identifier !== undefined
+        && baseName(identifier) === baseName(tail.name)
+        && (fromDefinition || contains(tail.selectionRange, pos));
     const atDefinitionStart = fromDefinition && compare(pos, tail.range.start) === 0;
     if (!nameMatches && !atDefinitionStart) {
         return undefined;
     }
-    if (chain.slice(0, -1).some(s => s.kind === 'function' || s.kind === 'method')) {
+    if (chain.slice(0, -1).some(s => s.kind === 'function' || s.kind === 'method')
+        || chain.slice(1).some(s => s.kind === 'variable')) {
         return undefined;
     }
     const root = chain[0];
