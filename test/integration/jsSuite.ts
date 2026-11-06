@@ -35,6 +35,7 @@ export async function run(): Promise<void> {
         ['method', use, positionOf(use, 'new Calc().add()', 'add'), 'src/math.js:Calc.add', false],
         ['nested key', use, positionOf(use, 'cfg.a.b', 'b'), 'src/math.js:cfg.a.b', false],
         ['local', math, positionOf(math, 'return inner', 'inner'), `src/math.js:${positionOf(math, 'return inner', 'inner').line + 1}`, true],
+        ['arrow-function local', math, positionOf(math, 'return local', 'local'), `src/math.js:${positionOf(math, 'return local', 'local').line + 1}`, true],
     ];
 
     const failures: string[] = [];

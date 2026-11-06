@@ -12,3 +12,8 @@ export function withLocal() {
   const inner = 1;
   return inner;
 }
+
+export const handler = () => {
+  const local = 1;
+  return local;
+};

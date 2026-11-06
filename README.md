@@ -51,4 +51,4 @@ When no symbol reference can be produced, the clipboard gets `path:line`:
 - With PHP Tools, targets in `vendor/` rely on Composer metadata (`vendor/composer/installed.json`), which is present in normal Composer projects.
 - A call on an interface method copies the interface method.
 - In multi-root workspaces, paths omit the folder name.
-- A symbol nested inside a function (for example an inner function) gives the fallback.
+- A symbol nested inside a function (for example an inner function, or a local variable inside an arrow function) gives the fallback.
