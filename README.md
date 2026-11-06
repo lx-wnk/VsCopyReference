@@ -36,7 +36,7 @@ The status bar shows what was copied and says when the fallback (path and line) 
 - PHP: [DEVSENSE PHP Tools](https://marketplace.visualstudio.com/items?itemName=devsense.phptools-vscode) or [Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client). Either one is enough.
 - JavaScript and TypeScript: VS Code's built-in TypeScript support.
 
-Each language works on its own; installing only one language's extension is fine. Without a provider you get `path:line`, plus a one-time hint to install one.
+Each language works on its own; installing only one language's extension is fine. Without a provider you get `path:line`. For PHP, a hint to install a provider is shown once per VS Code session (JavaScript and TypeScript need no extra extension).
 
 ## Fallback
 
@@ -47,7 +47,7 @@ When no symbol reference can be produced, the clipboard gets `path:line`:
 
 ## Known limitations
 
-- Right after startup the language server needs time to index. PHP Tools needed more than 30 seconds in tests for targets in other files; until then the fallback is copied.
+- Right after startup the language server needs time to index. PHP Tools needed up to about 30 seconds after startup in tests (exact time unmeasured) to resolve targets in other files; until then the path and line fallback is copied.
 - With PHP Tools, targets in `vendor/` rely on Composer metadata (`vendor/composer/installed.json`), which is present in normal Composer projects.
 - A call on an interface method copies the interface method.
 - In multi-root workspaces, paths omit the folder name.
