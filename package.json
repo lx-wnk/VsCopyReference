@@ -1,9 +1,21 @@
 {
   "name": "copy-reference",
-  "displayName": "Copy Reference",
-  "version": "0.0.1",
+  "displayName": "Copy Reference (PhpStorm-style)",
+  "description": "Copy a fully qualified reference to the PHP, JavaScript or TypeScript symbol under the cursor, like PhpStorm's Copy Reference.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "php",
+    "phpstorm",
+    "copy reference",
+    "fqn",
+    "namespace"
+  ],
   "private": true,
-  "publisher": "local",
   "engines": {
     "vscode": "^1.95.0"
   },
