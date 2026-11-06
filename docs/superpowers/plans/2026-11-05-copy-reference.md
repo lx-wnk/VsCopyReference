@@ -15,7 +15,7 @@
 - No runtime dependencies. No bundled parsers or language servers.
 - PHP works with `devsense.phptools-vscode` and `bmewburn.vscode-intelephense-client`. No `extensionDependencies`.
 - Never copy a guessed name or the enclosing method. When unsure, use the fallback `relative/path:line` (1-based cursor line).
-- No text-based search for the enclosing class. The only text pattern is the anchored PHP `namespace` statement.
+- No text-based parsing of source files. The PHP namespace comes from provider symbols only (owner decision after spike, see spike results doc).
 - No line number on symbol references.
 - All code, comments and docs in English. Comments only where the code cannot show the reason.
 - Work on branch `feat/copy-reference`, created from `docs/copy-reference-design`. Commit messages end with the session's attribution lines.
@@ -26,7 +26,7 @@
 2. Interface method with several definitions: uses the first result and does not throw. Test in Task 5.
 3. Language server not ready or missing: copies the fallback, marks it as fallback, does not throw. Test in Task 5.
 4. File outside any workspace folder: fallback uses the absolute path. Test in Task 5.
-5. File with several namespaces or CRLF line endings: uses the namespace nearest above the target. Test in Task 3.
+5. File with several namespaces: uses the namespace nearest above the target, for both provider shapes. Test in Task 2.
 
 ---
 
@@ -100,6 +100,12 @@ selectChain(tree, { line: 2, character: 0 }, 'public', true) // ['C', 'm']: defi
 selectChain(tree, { line: 2, character: 0 }, 'public', false) // undefined: keyword under the cursor
 selectChain([], { line: 0, character: 0 }, 'x', false)      // undefined
 selectChain(objectTree, pos, 'b', false)                    // ['cfg', 'a', 'b']: object keys stay chained
+// Intelephense shape: top-level [namespace 'Acme\\Util' (line 2 only), class 'FloatComparator' (lines 4-14) > method]
+selectChain(flatNsTree, posOnMethodName, 'lessThanOrEquals', false) // ['Acme\\Util', 'FloatComparator', 'lessThanOrEquals']
+// two one-line namespaces A (line 0) and B (line 10), class Foo at line 12
+selectChain(twoNsTree, posOnFoo, 'Foo', false)              // ['B', 'Foo']
+// PHP Tools shape: namespace 'Acme\\Util' (lines 2-18) > class > method 'lessThanOrEquals()'
+selectChain(nestedNsTree, posOnMethodName, 'lessThanOrEquals', false) // ['Acme\\Util', 'FloatComparator', 'lessThanOrEquals()']
 baseName('$prop') === 'prop'
 baseName('lessThanOrEquals()') === 'lessThanOrEquals'
 baseName('Acme\\Util\\Foo') === 'Foo'
@@ -112,7 +118,7 @@ Expected: FAIL, `selectChain` not defined.
 
 - [ ] **Step 3: Implement `selectChain` and `baseName`**
 
-Innermost symbol whose `range` contains `pos`. Accept when `baseName(identifier) === baseName(tail.name)`, or when `fromDefinition` and `pos` equals `tail.range.start`. Reject if any ancestor kind is `function` or `method`. Adjust `baseName` to names found in the spike results.
+Innermost symbol whose `range` contains `pos`. Accept when `baseName(identifier) === baseName(tail.name)`, or when `fromDefinition` and `pos` equals `tail.range.start`. Reject if any ancestor kind is `function` or `method`. If the chain's root is not a `namespace`, prepend the nearest top-level `namespace` symbol that starts before the root and does not contain it (Intelephense emits namespaces as one-line siblings). Names follow `docs/superpowers/specs/2026-11-05-copy-reference-spike-results.md`: PHP Tools appends `()` to methods and functions and omits `$` on properties; Intelephense uses bare names and `$prop`.
 
 - [ ] **Step 4: Run tests to verify they pass**
 
@@ -132,28 +138,23 @@ Message: `feat: select symbol chain at a position`.
 **Interfaces:**
 - Consumes: `SymbolNode`, `baseName` from Task 2.
 - Produces in `src/language.ts`:
-  - `type FormatInput = { chain: SymbolNode[]; text: string; line: number; relativePath: string }`
+  - `type FormatInput = { chain: SymbolNode[]; relativePath: string }`
   - `type Language = { languageIds: readonly string[]; recommendedExtensions: readonly string[]; format(input: FormatInput): string | undefined }`. `undefined` means use the fallback.
 - Produces: `php: Language` with `languageIds: ['php']` and both PHP extension IDs from the Global Constraints.
 
 - [ ] **Step 1: Write failing tests**
 
 ```ts
-// Same output whichever way the provider reports the namespace:
-// parent namespace symbol, name 'Acme\\Util\\FloatComparator', detail 'Acme\\Util', or only the text.
+// Chains as selectChain returns them, root namespace 'Acme\\Util'; each case once per provider naming.
 '\\Acme\\Util\\FloatComparator'                     // class
-'\\Acme\\Util\\FloatComparator::lessThanOrEquals'   // method
+'\\Acme\\Util\\FloatComparator::lessThanOrEquals'   // method, from 'lessThanOrEquals' or 'lessThanOrEquals()'
 '\\Acme\\Util\\FloatComparator::EPSILON'            // class constant
-'\\Acme\\Util\\FloatComparator::$tolerance'         // property, from name 'tolerance' or '$tolerance'
-'\\Acme\\Util\\helper'                              // function
+'\\Acme\\Util\\FloatComparator::$tolerance'         // property: Intelephense kind property '$tolerance'; PHP Tools kind other 'tolerance'
+'\\Acme\\Util\\helper'                              // function, from 'helper' or 'helper()'
 '\\Acme\\Util\\LIMIT'                               // global constant
-'\\helper'                                          // no namespace statement
-// text with 'namespace A;' and later 'namespace B;', target below B: '\\B\\Foo'
-// 'namespace A { ... }': '\\A\\Foo'
-// CRLF line endings: '\\Acme\\Util\\Foo'
-// '// namespace Old;' above the real one: not matched
-// target inside '/*\nnamespace Old;\n*/' only: undefined
+'\\helper'                                          // no namespace in chain
 // chain of class > class: undefined
+// chain of namespace only: undefined
 ```
 
 - [ ] **Step 2: Run tests to verify they fail**
@@ -163,7 +164,7 @@ Expected: FAIL, `php` not defined.
 
 - [ ] **Step 3: Implement `src/language.ts` and `php.format`**
 
-Provider namespace first, then the last match above `line` of `/^[ \t]*namespace[ \t]+([A-Za-z_][\w\\]*)[ \t]*[;{]/gm`. If the match lies inside an unclosed `/*`, return `undefined`.
+Namespace from the chain's root `namespace` symbol, if any. A class member of kind `other` or `variable` whose name has no `()` is a property.
 
 - [ ] **Step 4: Run tests to verify they pass**
 
