@@ -24,12 +24,18 @@ export async function run(): Promise<void> {
         await sleep(POLL_INTERVAL_MS);
     }
 
+    const members = await openInWorkspace('src/members.ts');
+    const innerFn = positionOf(members, 'return innerFn', 'innerFn');
+
     const cases: [string, vscode.TextDocument, vscode.Position, string, boolean][] = [
         ['function', use, round, 'src/math.js:round', false],
         ['method', use, positionOf(use, 'new Calc().add()', 'add'), 'src/math.js:Calc.add', false],
         ['nested key', use, positionOf(use, 'cfg.a.b', 'b'), 'src/math.js:cfg.a.b', false],
         ['local', math, positionOf(math, 'return inner', 'inner'), `src/math.js:${positionOf(math, 'return inner', 'inner').line + 1}`, true],
         ['arrow-function local', math, positionOf(math, 'return local', 'local'), `src/math.js:${positionOf(math, 'return local', 'local').line + 1}`, true],
+        ['enum member', members, positionOf(members, 'export const c', 'Red'), 'src/members.ts:Color.Red', false],
+        ['namespace member', members, positionOf(members, 'export const y', 'x;'), 'src/members.ts:N.x', false],
+        ['function in arrow function', members, innerFn, `src/members.ts:${innerFn.line + 1}`, true],
     ];
 
     await expectAll(
