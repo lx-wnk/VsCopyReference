@@ -22,15 +22,11 @@ const PROVIDER_EXTENSIONS: Record<string, string | undefined> = {
 async function main(): Promise<void> {
     const [provider, suite] = process.argv.slice(2);
     if (!(provider in FIXTURES) || !suite) {
-        throw new Error(`Usage: runTests.js <${Object.keys(FIXTURES).join('|')}> <spike|php|js|none|command>`);
+        throw new Error(`Usage: runTests.js <${Object.keys(FIXTURES).join('|')}> <php|js|none|command>`);
     }
 
     const root = path.resolve(__dirname, '../../..');
-    const extensionTestsPath = path.join(
-        root,
-        'out/test/integration',
-        suite === 'spike' ? 'spike.js' : `${suite}Suite.js`,
-    );
+    const extensionTestsPath = path.join(root, 'out/test/integration', `${suite}Suite.js`);
     const fixture = path.join(root, 'test/fixtures', FIXTURES[provider]);
     const extensionsDir = path.join(root, `.vscode-test/extensions-${provider}`);
     const userDataDir = path.join(os.tmpdir(), `cr-user-${provider}`);

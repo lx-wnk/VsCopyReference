@@ -19,6 +19,11 @@
   "engines": {
     "vscode": "^1.95.0"
   },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
   "main": "./out/src/extension.js",
   "contributes": {
     "commands": [
@@ -47,9 +52,6 @@
   "scripts": {
     "compile": "tsc -p .",
     "test:unit": "node --test out/test/unit/",
-    "spike:phptools": "node out/test/integration/runTests.js phptools spike",
-    "spike:intelephense": "node out/test/integration/runTests.js intelephense spike",
-    "spike:js": "node out/test/integration/runTests.js js spike",
     "test:integration": "node out/test/integration/runTests.js intelephense php && node out/test/integration/runTests.js phptools php && node out/test/integration/runTests.js js js && node out/test/integration/runTests.js none none && node out/test/integration/runTests.js none command"
   },
   "devDependencies": {
