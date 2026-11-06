@@ -1,10 +1,11 @@
 import * as vscode from 'vscode';
-import { computeReference } from './copyReference';
+import { computeReference, logError } from './copyReference';
 import { Language } from './language';
 import { languageFor } from './languages';
 
 const STATUS_BAR_MS = 3000;
 const hintedLanguages = new Set<string>();
+let statusMessage: vscode.Disposable | undefined;
 
 export function missingRecommendation(
     language: Language,
@@ -33,7 +34,7 @@ async function showExtensionHint(languageId: string): Promise<void> {
     }
 }
 
-async function copyReference(context: vscode.ExtensionContext): Promise<void> {
+async function copyReference(): Promise<void> {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
         return;
@@ -41,15 +42,16 @@ async function copyReference(context: vscode.ExtensionContext): Promise<void> {
     const { text, isFallback } = await computeReference(editor.document, editor.selection.active);
     await vscode.env.clipboard.writeText(text);
     const prefix = isFallback ? 'Copied path and line (no symbol reference)' : 'Copied reference';
-    context.subscriptions.push(vscode.window.setStatusBarMessage(`${prefix}: ${text}`, STATUS_BAR_MS));
+    statusMessage?.dispose();
+    statusMessage = vscode.window.setStatusBarMessage(`${prefix}: ${text}`, STATUS_BAR_MS);
     if (isFallback) {
-        showExtensionHint(editor.document.languageId).catch((e) => console.error('Copy Reference: extension hint failed', e));
+        showExtensionHint(editor.document.languageId).catch((e) => logError(e, editor.document));
     }
 }
 
 export function activate(context: vscode.ExtensionContext): void {
     context.subscriptions.push(
-        vscode.commands.registerCommand('copyReference.copy', () => copyReference(context)),
+        vscode.commands.registerCommand('copyReference.copy', copyReference),
     );
 }
 

@@ -26,7 +26,7 @@ const KINDS: Partial<Record<vscode.SymbolKind, Kind>> = {
 
 let output: vscode.OutputChannel | undefined;
 
-function logError(error: unknown, document: vscode.TextDocument): void {
+export function logError(error: unknown, document: vscode.TextDocument): void {
     output ??= vscode.window.createOutputChannel('Copy Reference');
     const cause = error instanceof Error ? error.stack ?? error.message : String(error);
     output.appendLine(`${document.uri.toString()}\n${cause}`);
