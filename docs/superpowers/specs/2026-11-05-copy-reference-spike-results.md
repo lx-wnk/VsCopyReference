@@ -1,6 +1,6 @@
 # Copy Reference: provider spike results
 
-Source data: `out/spike/{phptools,intelephense,js}.json` (not committed), produced by `npm run spike:<provider>` against VS Code 1.145.1 in the test host. Fixtures: `test/fixtures/php`, `test/fixtures/js`. All line/character values are 0-based as emitted. `php` is not installed on the machine; PHP Tools ran without any licence or trial prompt in the test host (no message appeared in stdout or JSON). Versions: devsense.phptools-vscode 1.76.19502, Intelephense from the marketplace (latest at run time).
+Source data: `docs/superpowers/specs/spike-data/{phptools,intelephense,js}.json` (committed copies of `out/spike/*.json`, unchanged), produced by `npm run spike:<provider>` against VS Code 1.145.1 in the test host. Fixtures: `test/fixtures/php`, `test/fixtures/js`. All line/character values are 0-based as emitted. `php` is not installed on the machine; PHP Tools ran without any licence or trial prompt in the test host (no message appeared in stdout or JSON). Versions: devsense.phptools-vscode 1.76.19502, Intelephense from the marketplace (latest at run time).
 
 Each JSON holds `definitionsImmediate` (before any symbol request), `definitionsAfterPolling` (after the symbol polling phase), and, added in this unit, `definitionsAfterWait` (an extra 30 s later). Notation: `range` = `a:b-c:d`, `sel` = `selectionRange`.
 
@@ -55,7 +55,9 @@ Consequence: containment of a definition position in `range` selects the enclosi
 
 All Intelephense and TS results are `LocationLink`. PHP Tools returned `Location` (with `uri` and `range` only) in the cases where it returned anything.
 
-### Intelephense (after polling; all 1 result, all `LocationLink`)
+### Intelephense (all results `LocationLink`, 1 result each once resolved)
+
+Resolution state: immediate 0/7; afterPolling 6/7 (only `baseMethod` still empty); afterWait (+30 s) 7/7. The table below shows the resolved result.
 
 | Token | Target | targetRange | targetSelectionRange |
 |---|---|---|---|
@@ -63,7 +65,7 @@ All Intelephense and TS results are `LocationLink`. PHP Tools returned `Location
 | `EPSILON` | same file | `6:17-6:33` | `6:17-6:24` name |
 | `tolerance` (accessed as `$instance->tolerance`) | same file | `8:11-8:27` | `8:11-8:21` (name incl. `$`) |
 | `helper` | same file | `16:0-18:1` | `16:9-16:15` |
-| `baseMethod` (called on `Child`) | `vendor/.../ComparatorBase.php` | `6:4-8:5` | `6:20-6:30` |
+| `baseMethod` (called on `Child`; resolved only in afterWait) | `vendor/.../ComparatorBase.php` | `6:4-8:5` | `6:20-6:30` |
 | `compare` (interface, 2 implementations) | `src/Comparable.php` interface method | `6:4-6:30` | `6:20-6:27` |
 | `$local` | `src/Caller.php` own assignment | `17:8-17:14` | `17:8-17:14` |
 
@@ -93,21 +95,21 @@ PHP Tools resolves only same-file or same-namespace-sibling targets in this envi
 
 | Provider | File | immediate | final |
 |---|---|---|---|
-| PHP Tools | `vendor/acme/util/src/FloatComparator.php` | 0 symbols at 0 ms | 1 top-level symbol after **2018 ms** |
+| PHP Tools | `vendor/acme/util/src/FloatComparator.php` | 0 symbols at 0 ms | 1 top-level symbol after **2008 ms** |
 | PHP Tools | `vendor/acme/util/src/ComparatorBase.php` | 1 at 0 ms | 1 |
-| Intelephense | `vendor/.../FloatComparator.php` | 0 symbols at 0 ms | 3 top-level after **2024 ms** |
+| Intelephense | `vendor/.../FloatComparator.php` | 0 symbols at 0 ms | 3 top-level after **2019 ms** |
 | Intelephense | `vendor/.../ComparatorBase.php` | 2 at 0 ms | 2 |
 | TS | `node_modules/tiny/index.js` | 1 at 0 ms | 1 |
 
-VERIFIED: closed `vendor/` files do return symbols, but the first file touched can return an empty result at 0 ms and needs one poll cycle (poll interval 2000 ms, so true latency is between 0 and about 2 s). Files requested after the first one were immediately ready, which fits a one-time indexing cost per provider, not per file. A retry loop with a short interval is required. The 2018/2024 ms values are quantised by the 2000 ms poll interval.
+VERIFIED: closed `vendor/` files do return symbols, but the first file touched can return an empty result at 0 ms and needed one poll cycle (about 2 s, measured by polling at 2000 ms intervals, so the true latency lies between 0 and about 2 s). Files requested after the first one were immediately ready, which fits a one-time indexing cost per provider, not per file. A bounded retry for symbols is required. The 2008 ms (PHP Tools) and 2019 ms (Intelephense) values are the measured elapsed time of the first poll that returned symbols (poll interval 2000 ms).
 
 ## 6. Cold-start behaviour of definitions
 
-- Intelephense: 0 of 7 results `immediate`, 7 of 7 `afterPolling`. Needs warm-up; the first request after open returns empty arrays without error.
+- Intelephense: 0 of 7 `immediate`, 6 of 7 `afterPolling`, 7 of 7 `afterWait`. The inherited vendor target (`baseMethod` via `Child`) was still empty after the symbol-polling phase and resolved only after an additional pass following a 30 s wait; the exact time it became ready is unmeasured (between the end of polling and +30 s). Empty arrays are returned without error.
 - TS (JS): `immediate` was partly wrong, not just empty. `round`, `Calc`, `add` returned `[]`; `cfg`, `b`, `withLocal`, `tinyFn` already resolved correctly. After polling all 7 are correct. VERIFIED from `definitionsImmediate` vs `definitionsAfterPolling`.
 - PHP Tools: 0 of 7 immediate, 2 of 7 after polling and after +30 s. Waiting does not help for the 5 cross-file tokens.
 
-Callers must therefore retry definitions (empty result is not final) for a bounded time before falling back.
+An empty definition result is not final: inherited vendor resolution needed more than one pass and up to 30 s. A retry policy (interval and bound) is not derivable from this data; measuring it needs a finer-grained poll of `baseMethod` (HYPOTHESIS: it is ready within a few seconds; check: poll every 500 ms and log the first non-empty result).
 
 ## 7. Impact on the plan
 
@@ -124,7 +126,7 @@ Task 3 PHP namespace handling:
 - VERIFIED: global functions in a namespace (`helper`) appear under the namespace (PHP Tools child, Intelephense sibling), so `\Acme\Util\helper` is derivable.
 
 `vendor/` support:
-- VERIFIED: documentSymbol on closed `vendor/` files works for both PHP providers, with up to ~2 s warm-up on first touch; use a retry loop.
-- VERIFIED: Intelephense definitions into `vendor/` (including inherited `baseMethod`) work after warm-up.
-- VERIFIED: PHP Tools definitions into `vendor/` returned nothing in the test host, immediately, after polling and after 30 s. HYPOTHESIS: caused by the test environment (no `php` binary, no licence, indexing disabled in a fresh profile) and not by PHP Tools itself. Cheapest check: run the same fixture in the owner's normal VS Code with PHP Tools installed and licensed, F12 on `lessThanOrEquals` in `Caller.php`.
+- VERIFIED: documentSymbol on closed `vendor/` files works for both PHP providers, with about 2 s warm-up on first touch (first file only); use a bounded retry.
+- VERIFIED: Intelephense definitions into `vendor/` work, direct ones by afterPolling, inherited `baseMethod` only by afterWait (+30 s). Do not assume a short retry suffices; the needed bound is unmeasured.
+- OPEN, INCONCLUSIVE until the owner's F12 check in normal VS Code: VERIFIED only that PHP Tools definitions into `vendor/` and across `use` imports returned nothing in the test host, immediately, after polling and after 30 s. HYPOTHESIS: caused by the test environment (no `php` binary, no licence, indexing disabled in a fresh profile) and not by PHP Tools itself. Cheapest check: run the same fixture in the owner's normal VS Code with PHP Tools installed and licensed, F12 on `lessThanOrEquals` in `Caller.php`.
 - HYPOTHESIS: `compare` on a typed receiver yields only the interface method; the plan's "implementations" case would need `vscode.executeImplementationProvider`. Cheapest check: call it at the same position in the spike.
