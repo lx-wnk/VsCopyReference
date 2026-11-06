@@ -1,16 +1,10 @@
 import * as assert from 'node:assert/strict';
 import * as vscode from 'vscode';
 import { computeReference } from '../../src/copyReference';
+import { expectAll, openInWorkspace, sleep } from './util';
 
 const POLL_INTERVAL_MS = 1000;
 const POLL_LIMIT_MS = 60000;
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-async function open(file: string): Promise<vscode.TextDocument> {
-    const root = vscode.workspace.workspaceFolders![0].uri;
-    return vscode.workspace.openTextDocument(vscode.Uri.joinPath(root, file));
-}
 
 function positionOf(document: vscode.TextDocument, lineContains: string, token: string): vscode.Position {
     const line = document.getText().split('\n').findIndex((l) => l.includes(lineContains));
@@ -19,8 +13,8 @@ function positionOf(document: vscode.TextDocument, lineContains: string, token: 
 }
 
 export async function run(): Promise<void> {
-    const use = await open('src/use.js');
-    const math = await open('src/math.js');
+    const use = await openInWorkspace('src/use.js');
+    const math = await openInWorkspace('src/math.js');
     const round = positionOf(use, 'round(1)', 'round');
 
     // The TS server returns wrong definitions while cold.
@@ -38,15 +32,10 @@ export async function run(): Promise<void> {
         ['arrow-function local', math, positionOf(math, 'return local', 'local'), `src/math.js:${positionOf(math, 'return local', 'local').line + 1}`, true],
     ];
 
-    const failures: string[] = [];
-    for (const [name, document, position, text, isFallback] of cases) {
-        try {
-            assert.deepEqual(await computeReference(document, position), { text, isFallback });
-        } catch (e) {
-            failures.push(`${name}: ${e instanceof Error ? e.message : String(e)}`);
-        }
-    }
-    if (failures.length > 0) {
-        throw new Error(failures.join('\n\n'));
-    }
+    await expectAll(
+        cases.map(([name, document, position, text, isFallback]) => [
+            name,
+            async () => assert.deepEqual(await computeReference(document, position), { text, isFallback }),
+        ]),
+    );
 }

@@ -1,16 +1,10 @@
 import * as assert from 'node:assert/strict';
 import * as vscode from 'vscode';
 import { computeReference } from '../../src/copyReference';
+import { expectAll, openInWorkspace, sleep } from './util';
 
 const POLL_INTERVAL_MS = 2000;
 const POLL_LIMIT_MS = 120000;
-
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-async function open(file: string): Promise<vscode.TextDocument> {
-    const root = vscode.workspace.workspaceFolders![0].uri;
-    return vscode.workspace.openTextDocument(vscode.Uri.joinPath(root, file));
-}
 
 // line is 1-based
 function at(document: vscode.TextDocument, line: number, token: string): vscode.Position {
@@ -20,8 +14,8 @@ function at(document: vscode.TextDocument, line: number, token: string): vscode.
 }
 
 export async function run(): Promise<void> {
-    const caller = await open('src/Caller.php');
-    const comparator = await open('vendor/acme/util/src/FloatComparator.php');
+    const caller = await openInWorkspace('src/Caller.php');
+    const comparator = await openInWorkspace('vendor/acme/util/src/FloatComparator.php');
     const baseMethod = at(caller, 16, 'baseMethod');
 
     // Both providers return empty definitions while cold; baseMethod is the slowest target.
@@ -49,15 +43,10 @@ export async function run(): Promise<void> {
         ['blank line', caller, new vscode.Position(19, 0), 'src/Caller.php:20', true],
     ];
 
-    const failures: string[] = [];
-    for (const [name, document, position, text, isFallback] of cases) {
-        try {
-            assert.deepEqual(await computeReference(document, position), { text, isFallback });
-        } catch (e) {
-            failures.push(`${name}: ${e instanceof Error ? e.message : String(e)}`);
-        }
-    }
-    if (failures.length > 0) {
-        throw new Error(failures.join('\n\n'));
-    }
+    await expectAll(
+        cases.map(([name, document, position, text, isFallback]) => [
+            name,
+            async () => assert.deepEqual(await computeReference(document, position), { text, isFallback }),
+        ]),
+    );
 }
