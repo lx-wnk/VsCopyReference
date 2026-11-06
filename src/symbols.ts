@@ -18,12 +18,6 @@ export const compare = (a: Pos, b: Pos): number =>
 const contains = (r: Rng, pos: Pos): boolean =>
     compare(r.start, pos) <= 0 && compare(pos, r.end) <= 0;
 
-export function baseName(name: string): string {
-    const withoutCall = name.replace(/\(\)$/, '');
-    const afterNamespace = withoutCall.slice(withoutCall.lastIndexOf('\\') + 1);
-    return afterNamespace.replace(/^\$/, '');
-}
-
 function descend(symbols: SymbolNode[], pos: Pos): SymbolNode[] {
     const hit = symbols.find(s => contains(s.range, pos));
     return hit ? [hit, ...descend(hit.children, pos)] : [];
@@ -34,6 +28,7 @@ export function selectChain(
     pos: Pos,
     identifier: string | undefined,
     fromDefinition: boolean,
+    normalizeName: (name: string) => string = name => name,
 ): SymbolNode[] | undefined {
     const chain = descend(symbols, pos);
     const tail = chain[chain.length - 1];
@@ -41,7 +36,7 @@ export function selectChain(
         return undefined;
     }
     const nameMatches = identifier !== undefined
-        && baseName(identifier) === baseName(tail.name)
+        && normalizeName(identifier) === normalizeName(tail.name)
         && (fromDefinition || contains(tail.selectionRange, pos));
     const atDefinitionStart = fromDefinition && compare(pos, tail.range.start) === 0;
     if (!nameMatches && !atDefinitionStart) {
@@ -51,16 +46,5 @@ export function selectChain(
         || chain.slice(1).some(s => s.kind === 'variable')) {
         return undefined;
     }
-    const root = chain[0];
-    if (root.kind === 'namespace') {
-        return chain;
-    }
-    // Intelephense emits namespaces as one-line siblings preceding the declarations.
-    const namespace = symbols
-        .filter(s => s.kind === 'namespace'
-            && s.children.length === 0
-            && s.range.start.line === s.range.end.line
-            && compare(s.range.start, root.range.start) < 0)
-        .sort((a, b) => compare(b.range.start, a.range.start))[0];
-    return namespace ? [namespace, ...chain] : chain;
+    return chain;
 }

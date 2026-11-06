@@ -4,8 +4,6 @@ import { Kind, SymbolNode, selectChain } from './symbols';
 
 export type Reference = { text: string; isFallback: boolean };
 
-const IDENTIFIER = /\$?[A-Za-z_][A-Za-z0-9_]*/;
-
 const KINDS: Partial<Record<vscode.SymbolKind, Kind>> = {
     [vscode.SymbolKind.Namespace]: 'namespace',
     [vscode.SymbolKind.Module]: 'namespace',
@@ -71,10 +69,11 @@ async function resolve(document: vscode.TextDocument, position: vscode.Position)
     const symbols = await vscode.commands.executeCommand<(vscode.DocumentSymbol | vscode.SymbolInformation)[]>(
         'vscode.executeDocumentSymbolProvider', target.uri,
     );
-    const range = targetDocument.getWordRangeAtPosition(target.position, IDENTIFIER);
+    const range = targetDocument.getWordRangeAtPosition(target.position, language.identifierPattern);
     const identifier = range ? targetDocument.getText(range) : undefined;
-    const chain = selectChain((symbols ?? []).map(toNode), target.position, identifier, target.fromDefinition);
-    return chain && language.format({ chain, relativePath: vscode.workspace.asRelativePath(target.uri, false) });
+    const nodes = (symbols ?? []).map(toNode);
+    const chain = selectChain(nodes, target.position, identifier, target.fromDefinition, language.normalizeName);
+    return chain && language.format({ chain: language.qualify?.(nodes, chain) ?? chain, relativePath: vscode.workspace.asRelativePath(target.uri, false) });
 }
 
 export async function computeReference(document: vscode.TextDocument, position: vscode.Position): Promise<Reference> {
