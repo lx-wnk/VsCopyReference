@@ -1,8 +1,29 @@
 import { FormatInput, Language } from '../language';
-import { baseName, SymbolNode } from '../symbols';
+import { compare, SymbolNode } from '../symbols';
+
+export function phpName(name: string): string {
+    const withoutCall = name.replace(/\(\)$/, '');
+    const afterNamespace = withoutCall.slice(withoutCall.lastIndexOf('\\') + 1);
+    return afterNamespace.replace(/^\$/, '');
+}
+
+export function prependNamespace(symbols: SymbolNode[], chain: SymbolNode[]): SymbolNode[] {
+    const root = chain[0];
+    if (!root || root.kind === 'namespace') {
+        return chain;
+    }
+    // Intelephense emits namespaces as one-line siblings preceding the declarations.
+    const namespace = symbols
+        .filter(s => s.kind === 'namespace'
+            && s.children.length === 0
+            && s.range.start.line === s.range.end.line
+            && compare(s.range.start, root.range.start) < 0)
+        .sort((a, b) => compare(b.range.start, a.range.start))[0];
+    return namespace ? [namespace, ...chain] : chain;
+}
 
 function memberSuffix(member: SymbolNode): string | undefined {
-    const name = baseName(member.name);
+    const name = phpName(member.name);
     switch (member.kind) {
         case 'method':
         case 'constant':
@@ -26,10 +47,10 @@ function format({ chain }: FormatInput): string | undefined {
     const prefix = namespace ? `\\${namespace.name}\\` : '\\';
     if (head.kind === 'class') {
         const suffix = member ? memberSuffix(member) : '';
-        return suffix === undefined ? undefined : prefix + baseName(head.name) + suffix;
+        return suffix === undefined ? undefined : prefix + phpName(head.name) + suffix;
     }
     if (!member && (head.kind === 'function' || head.kind === 'constant')) {
-        return prefix + baseName(head.name);
+        return prefix + phpName(head.name);
     }
     return undefined;
 }
@@ -37,5 +58,8 @@ function format({ chain }: FormatInput): string | undefined {
 export const php: Language = {
     languageIds: ['php'],
     recommendedExtensions: ['devsense.phptools-vscode', 'bmewburn.vscode-intelephense-client'],
+    identifierPattern: /\$?[A-Za-z_][A-Za-z0-9_]*/,
+    normalizeName: phpName,
+    qualify: prependNamespace,
     format,
 };

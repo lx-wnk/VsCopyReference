@@ -12,7 +12,7 @@ export type SymbolNode = {
     children: SymbolNode[];
 };
 
-const compare = (a: Pos, b: Pos): number =>
+export const compare = (a: Pos, b: Pos): number =>
     a.line - b.line || a.character - b.character;
 
 const contains = (r: Rng, pos: Pos): boolean =>

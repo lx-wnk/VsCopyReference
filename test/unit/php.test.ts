@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { php } from '../../src/languages/php';
-import { Kind, SymbolNode } from '../../src/symbols';
+import { php, phpName, prependNamespace } from '../../src/languages/php';
+import { Kind, Pos, SymbolNode } from '../../src/symbols';
 
 const at = { line: 0, character: 0 };
 const node = (name: string, kind: Kind): SymbolNode => ({
@@ -60,4 +60,61 @@ test('unsupported chains return undefined', () => {
     assert.equal(format(), undefined);
     assert.equal(format(ns, cls, node('x()', 'other')), undefined);
     assert.equal(format(ns, cls, node('m', 'method'), node('v', 'variable')), undefined);
+});
+
+const p = (line: number, character: number): Pos => ({ line, character });
+const sym = (
+    name: string, kind: Kind, start: Pos, end: Pos, children: SymbolNode[] = [],
+): SymbolNode => ({
+    name, kind, detail: '',
+    range: { start, end }, selectionRange: { start, end }, children,
+});
+const qualifiedNames = (symbols: SymbolNode[], chain: SymbolNode[]) =>
+    prependNamespace(symbols, chain).map(s => s.name);
+
+test('phpName strips sigils, call parens and namespaces', () => {
+    assert.equal(phpName('$prop'), 'prop');
+    assert.equal(phpName('load()'), 'load');
+    assert.equal(phpName('Acme\\Util\\helper'), 'helper');
+});
+
+test('php hooks are registered', () => {
+    assert.equal(php.normalizeName, phpName);
+    assert.equal(php.qualify, prependNamespace);
+    assert.ok(php.identifierPattern?.test('$tolerance'));
+});
+
+test('prependNamespace prepends the preceding one-line namespace', () => {
+    const method = sym('lessThanOrEquals', 'method', p(6, 4), p(8, 5));
+    const klass = sym('FloatComparator', 'class', p(4, 0), p(14, 1), [method]);
+    const symbols = [sym('Acme\\Util', 'namespace', p(2, 0), p(2, 20)), klass];
+    assert.deepEqual(qualifiedNames(symbols, [klass, method]), ['Acme\\Util', 'FloatComparator', 'lessThanOrEquals']);
+});
+
+test('prependNamespace chooses the nearest of several', () => {
+    const foo = sym('Foo', 'class', p(12, 0), p(20, 1));
+    const symbols = [
+        sym('A', 'namespace', p(0, 0), p(0, 12)),
+        sym('B', 'namespace', p(10, 0), p(10, 12)),
+        foo,
+    ];
+    assert.deepEqual(qualifiedNames(symbols, [foo]), ['B', 'Foo']);
+});
+
+test('prependNamespace leaves a namespace root untouched', () => {
+    const klass = sym('FloatComparator', 'class', p(4, 0), p(16, 1));
+    const root = sym('Acme\\Util', 'namespace', p(2, 0), p(18, 1), [klass]);
+    const chain = [root, klass];
+    assert.equal(prependNamespace([root], chain), chain);
+});
+
+test('prependNamespace skips namespaces with children, multi-line ranges or after the root', () => {
+    const bar = sym('Bar', 'class', p(7, 0), p(12, 1));
+    const closed = sym('Foo', 'namespace', p(0, 0), p(5, 1), [sym('Inner', 'class', p(1, 2), p(4, 3))]);
+    const oneLineWithChild = sym('Foo', 'namespace', p(0, 0), p(0, 30), [sym('Inner', 'class', p(0, 10), p(0, 25))]);
+    const multiLine = sym('Foo', 'namespace', p(0, 0), p(5, 1));
+    const after = sym('Foo', 'namespace', p(20, 0), p(20, 10));
+    for (const ns of [closed, oneLineWithChild, multiLine, after]) {
+        assert.deepEqual(qualifiedNames([ns, bar], [bar]), ['Bar']);
+    }
 });
