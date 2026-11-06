@@ -11,3 +11,4 @@ tsconfig.json
 media/*.svg
 package-lock.json
 .dockerignore
+.github/**
