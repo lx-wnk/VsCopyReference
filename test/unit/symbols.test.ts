@@ -1,0 +1,100 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { baseName, Kind, Pos, selectChain, SymbolNode } from '../../src/symbols';
+
+const p = (line: number, character: number): Pos => ({ line, character });
+const sym = (
+    name: string, kind: Kind, start: Pos, end: Pos, children: SymbolNode[] = [],
+    selStart: Pos = start,
+): SymbolNode => ({
+    name, kind, detail: '',
+    range: { start, end },
+    selectionRange: { start: selStart, end: selStart },
+    children,
+});
+const names = (chain: SymbolNode[] | undefined) => chain?.map(s => s.name);
+
+const tree = [
+    sym('C', 'class', p(0, 0), p(9, 1), [
+        sym('m', 'method', p(2, 0), p(5, 3), [
+            sym('v', 'variable', p(3, 4), p(3, 20)),
+        ], p(2, 11)),
+    ]),
+];
+
+test('selects class and method at the method name', () => {
+    assert.deepEqual(names(selectChain(tree, p(2, 12), 'm', false)), ['C', 'm']);
+});
+
+test('blank space inside a method yields undefined', () => {
+    assert.equal(selectChain(tree, p(4, 0), undefined, false), undefined);
+});
+
+test('symbol under a function ancestor is rejected', () => {
+    assert.equal(selectChain(tree, p(3, 8), 'v', false), undefined);
+});
+
+test('definition at declaration start accepts a keyword identifier', () => {
+    assert.deepEqual(names(selectChain(tree, p(2, 0), 'public', true)), ['C', 'm']);
+});
+
+test('keyword under the cursor is rejected when not from a definition', () => {
+    assert.equal(selectChain(tree, p(2, 0), 'public', false), undefined);
+});
+
+test('empty symbol list yields undefined', () => {
+    assert.equal(selectChain([], p(0, 0), 'x', false), undefined);
+});
+
+test('object keys stay chained', () => {
+    const objectTree = [
+        sym('cfg', 'variable', p(0, 0), p(5, 1), [
+            sym('a', 'property', p(1, 2), p(4, 3), [
+                sym('b', 'property', p(2, 4), p(2, 10)),
+            ]),
+        ]),
+    ];
+    assert.deepEqual(names(selectChain(objectTree, p(2, 5), 'b', false)), ['cfg', 'a', 'b']);
+});
+
+test('prepends the preceding one-line namespace (Intelephense shape)', () => {
+    const flatNsTree = [
+        sym('Acme\\Util', 'namespace', p(2, 0), p(2, 20)),
+        sym('FloatComparator', 'class', p(4, 0), p(14, 1), [
+            sym('lessThanOrEquals', 'method', p(6, 4), p(8, 5)),
+        ]),
+    ];
+    assert.deepEqual(
+        names(selectChain(flatNsTree, p(6, 20), 'lessThanOrEquals', false)),
+        ['Acme\\Util', 'FloatComparator', 'lessThanOrEquals'],
+    );
+});
+
+test('prepends the nearest namespace when several precede', () => {
+    const twoNsTree = [
+        sym('A', 'namespace', p(0, 0), p(0, 12)),
+        sym('B', 'namespace', p(10, 0), p(10, 12)),
+        sym('Foo', 'class', p(12, 0), p(20, 1)),
+    ];
+    assert.deepEqual(names(selectChain(twoNsTree, p(12, 8), 'Foo', false)), ['B', 'Foo']);
+});
+
+test('does not prepend when the root is already a namespace (PHP Tools shape)', () => {
+    const nestedNsTree = [
+        sym('Acme\\Util', 'namespace', p(2, 0), p(18, 1), [
+            sym('FloatComparator', 'class', p(4, 0), p(16, 1), [
+                sym('lessThanOrEquals()', 'method', p(6, 4), p(8, 5)),
+            ]),
+        ]),
+    ];
+    assert.deepEqual(
+        names(selectChain(nestedNsTree, p(6, 20), 'lessThanOrEquals', false)),
+        ['Acme\\Util', 'FloatComparator', 'lessThanOrEquals()'],
+    );
+});
+
+test('baseName strips sigils, call parens and namespaces', () => {
+    assert.equal(baseName('$prop'), 'prop');
+    assert.equal(baseName('lessThanOrEquals()'), 'lessThanOrEquals');
+    assert.equal(baseName('Acme\\Util\\Foo'), 'Foo');
+});
