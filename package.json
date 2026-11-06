@@ -14,6 +14,22 @@
         "command": "copyReference.copy",
         "title": "Copy Reference"
       }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "copyReference.copy",
+          "group": "9_cutcopypaste"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "copyReference.copy",
+        "key": "ctrl+alt+shift+c",
+        "mac": "cmd+alt+shift+c",
+        "when": "editorTextFocus"
+      }
     ]
   },
   "scripts": {
