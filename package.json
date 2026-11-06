@@ -53,7 +53,7 @@
     "compile": "tsc -p .",
     "test:unit": "node --test \"out/test/unit/**/*.test.js\"",
     "test:integration": "node out/test/integration/runTests.js intelephense php && node out/test/integration/runTests.js phptools php && node out/test/integration/runTests.js js js && node out/test/integration/runTests.js none none && node out/test/integration/runTests.js none command",
-    "test:docker": "docker build -f test/docker/Dockerfile -t copy-reference-test . && docker run --rm copy-reference-test"
+    "test:docker": "docker build -f test/docker/Dockerfile -t copy-reference-test . && docker run --rm --init copy-reference-test"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",

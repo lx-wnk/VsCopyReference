@@ -5,3 +5,7 @@ out
 .git
 .superpowers
 .claude
+.env*
+.npmrc
+*.pem
+*.key
