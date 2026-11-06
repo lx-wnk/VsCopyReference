@@ -1,0 +1,33 @@
+{
+  "name": "copy-reference",
+  "displayName": "Copy Reference",
+  "version": "0.0.1",
+  "private": true,
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copyReference.copy",
+        "title": "Copy Reference"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "test:unit": "node --test out/test/unit/",
+    "spike:phptools": "node out/test/integration/runTests.js phptools spike",
+    "spike:intelephense": "node out/test/integration/runTests.js intelephense spike",
+    "spike:js": "node out/test/integration/runTests.js js spike",
+    "test:integration": "node out/test/integration/runTests.js intelephense php && node out/test/integration/runTests.js phptools php && node out/test/integration/runTests.js js js && node out/test/integration/runTests.js none none && node out/test/integration/runTests.js none command"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/vscode": "^1.95.0",
+    "@vscode/test-electron": "^3.1.0",
+    "typescript": "^7.0.2"
+  }
+}

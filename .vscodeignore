@@ -1,0 +1,9 @@
+.vscode/**
+.vscode-test/**
+.superpowers/**
+.claude/**
+docs/**
+src/**
+test/**
+out/test/**
+tsconfig.json
