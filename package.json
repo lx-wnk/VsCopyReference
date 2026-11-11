@@ -1,0 +1,64 @@
+{
+  "name": "copy-reference",
+  "displayName": "Copy Reference (PhpStorm-style)",
+  "description": "Copy a fully qualified reference to the PHP, JavaScript or TypeScript symbol under the cursor, like PhpStorm's Copy Reference.",
+  "version": "0.1.0",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "php",
+    "phpstorm",
+    "copy reference",
+    "fqn",
+    "namespace"
+  ],
+  "private": true,
+  "engines": {
+    "vscode": "^1.95.0"
+  },
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "main": "./out/src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copyReference.copy",
+        "title": "Copy Reference"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "copyReference.copy",
+          "group": "9_cutcopypaste"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "copyReference.copy",
+        "key": "ctrl+alt+shift+c",
+        "mac": "cmd+alt+shift+c",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "test:unit": "node --test \"out/test/unit/**/*.test.js\"",
+    "test:integration": "node out/test/integration/runTests.js intelephense php && node out/test/integration/runTests.js phptools php && node out/test/integration/runTests.js js js && node out/test/integration/runTests.js none none && node out/test/integration/runTests.js none command",
+    "test:docker": "docker build -f test/docker/Dockerfile -t copy-reference-test . && docker run --rm --init copy-reference-test"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/vscode": "^1.95.0",
+    "@vscode/test-electron": "^3.1.0",
+    "typescript": "^7.0.2"
+  }
+}

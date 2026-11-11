@@ -1,0 +1,1301 @@
+{
+  "provider": "phptools",
+  "vscodeVersion": "1.145.1",
+  "definitionsImmediate": [
+    {
+      "file": "src/Caller.php",
+      "token": "lessThanOrEquals",
+      "position": {
+        "line": 11,
+        "character": 25
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "EPSILON",
+      "position": {
+        "line": 12,
+        "character": 25
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "tolerance",
+      "position": {
+        "line": 13,
+        "character": 19
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "helper",
+      "position": {
+        "line": 14,
+        "character": 8
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "baseMethod",
+      "position": {
+        "line": 15,
+        "character": 23
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "compare",
+      "position": {
+        "line": 16,
+        "character": 21
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "$local",
+      "position": {
+        "line": 17,
+        "character": 9
+      },
+      "results": []
+    }
+  ],
+  "definitionsAfterPolling": [
+    {
+      "file": "src/Caller.php",
+      "token": "lessThanOrEquals",
+      "position": {
+        "line": 11,
+        "character": 25
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "EPSILON",
+      "position": {
+        "line": 12,
+        "character": 25
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "tolerance",
+      "position": {
+        "line": 13,
+        "character": 19
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "helper",
+      "position": {
+        "line": 14,
+        "character": 8
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "baseMethod",
+      "position": {
+        "line": 15,
+        "character": 23
+      },
+      "results": []
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "compare",
+      "position": {
+        "line": 16,
+        "character": 21
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "src/Comparable.php",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 20
+            },
+            "end": {
+              "line": 6,
+              "character": 27
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "$local",
+      "position": {
+        "line": 17,
+        "character": 9
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "src/Caller.php",
+          "range": {
+            "start": {
+              "line": 17,
+              "character": 8
+            },
+            "end": {
+              "line": 17,
+              "character": 14
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "definitionsAfterWait": [
+    {
+      "file": "src/Caller.php",
+      "token": "lessThanOrEquals",
+      "position": {
+        "line": 11,
+        "character": 25
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "vendor/acme/util/src/FloatComparator.php",
+          "range": {
+            "start": {
+              "line": 10,
+              "character": 4
+            },
+            "end": {
+              "line": 13,
+              "character": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "EPSILON",
+      "position": {
+        "line": 12,
+        "character": 25
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "vendor/acme/util/src/FloatComparator.php",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 17
+            },
+            "end": {
+              "line": 6,
+              "character": 33
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "tolerance",
+      "position": {
+        "line": 13,
+        "character": 19
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "vendor/acme/util/src/FloatComparator.php",
+          "range": {
+            "start": {
+              "line": 8,
+              "character": 11
+            },
+            "end": {
+              "line": 8,
+              "character": 27
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "helper",
+      "position": {
+        "line": 14,
+        "character": 8
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "vendor/acme/util/src/FloatComparator.php",
+          "range": {
+            "start": {
+              "line": 16,
+              "character": 0
+            },
+            "end": {
+              "line": 18,
+              "character": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "baseMethod",
+      "position": {
+        "line": 15,
+        "character": 23
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "vendor/acme/util/src/ComparatorBase.php",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 4
+            },
+            "end": {
+              "line": 8,
+              "character": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "compare",
+      "position": {
+        "line": 16,
+        "character": 21
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "src/Comparable.php",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 20
+            },
+            "end": {
+              "line": 6,
+              "character": 27
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/Caller.php",
+      "token": "$local",
+      "position": {
+        "line": 17,
+        "character": 9
+      },
+      "results": [
+        {
+          "type": "Location",
+          "uri": "src/Caller.php",
+          "range": {
+            "start": {
+              "line": 17,
+              "character": 8
+            },
+            "end": {
+              "line": 17,
+              "character": 14
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "symbols": [
+    {
+      "file": "vendor/acme/util/src/FloatComparator.php",
+      "immediate": {
+        "elapsedMs": 0,
+        "symbols": []
+      },
+      "final": {
+        "elapsedMs": 2011,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "Acme\\Util",
+            "kind": 2,
+            "kindName": "Namespace",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 18,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 20
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "FloatComparator",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 14,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 4,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 21
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "lessThanOrEquals()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 10,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 13,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 10,
+                        "character": 27
+                      },
+                      "end": {
+                        "line": 10,
+                        "character": 43
+                      }
+                    },
+                    "children": []
+                  },
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "tolerance",
+                    "kind": 20,
+                    "kindName": "Null",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 8,
+                        "character": 11
+                      },
+                      "end": {
+                        "line": 8,
+                        "character": 27
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 8,
+                        "character": 11
+                      },
+                      "end": {
+                        "line": 8,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  },
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "EPSILON",
+                    "kind": 13,
+                    "kindName": "Constant",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 6,
+                        "character": 17
+                      },
+                      "end": {
+                        "line": 6,
+                        "character": 33
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 6,
+                        "character": 17
+                      },
+                      "end": {
+                        "line": 6,
+                        "character": 33
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "type": "DocumentSymbol",
+                "name": "helper()",
+                "kind": 11,
+                "kindName": "Function",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 16,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 18,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 16,
+                    "character": 9
+                  },
+                  "end": {
+                    "line": 16,
+                    "character": 15
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "vendor/acme/util/src/ComparatorBase.php",
+      "immediate": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "Acme\\Util",
+            "kind": 2,
+            "kindName": "Namespace",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 9,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 20
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "ComparatorBase",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 9,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 4,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 20
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "baseMethod()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 6,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 8,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 6,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 6,
+                        "character": 30
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "final": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "Acme\\Util",
+            "kind": 2,
+            "kindName": "Namespace",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 9,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 20
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "ComparatorBase",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 9,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 4,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 20
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "baseMethod()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 6,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 8,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 6,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 6,
+                        "character": 30
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "src/Comparable.php",
+      "immediate": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "App",
+            "kind": 2,
+            "kindName": "Namespace",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 21,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 14
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "Comparable",
+                "kind": 10,
+                "kindName": "Interface",
+                "detail": "interface",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 7,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 4,
+                    "character": 10
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 20
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "compare()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 6,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 6,
+                        "character": 30
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 6,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 6,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "type": "DocumentSymbol",
+                "name": "First",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 9,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 14,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 9,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 9,
+                    "character": 11
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "compare()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 11,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 13,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 11,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 11,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "type": "DocumentSymbol",
+                "name": "Second",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 16,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 21,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 16,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 16,
+                    "character": 12
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "compare()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 18,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 20,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 18,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 18,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "final": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "App",
+            "kind": 2,
+            "kindName": "Namespace",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 21,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 14
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "Comparable",
+                "kind": 10,
+                "kindName": "Interface",
+                "detail": "interface",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 7,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 4,
+                    "character": 10
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 20
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "compare()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 6,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 6,
+                        "character": 30
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 6,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 6,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "type": "DocumentSymbol",
+                "name": "First",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 9,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 14,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 9,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 9,
+                    "character": 11
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "compare()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 11,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 13,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 11,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 11,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "type": "DocumentSymbol",
+                "name": "Second",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 16,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 21,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 16,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 16,
+                    "character": 12
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "compare()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 18,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 20,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 18,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 18,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "src/Caller.php",
+      "immediate": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "App",
+            "kind": 2,
+            "kindName": "Namespace",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 22,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 14
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "Caller",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 7,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 22,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 7,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 7,
+                    "character": 12
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "run()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 9,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 21,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 9,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 9,
+                        "character": 23
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "final": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "App",
+            "kind": 2,
+            "kindName": "Namespace",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 22,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 2,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 14
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "Caller",
+                "kind": 4,
+                "kindName": "Class",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 7,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 22,
+                    "character": 1
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 7,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 7,
+                    "character": 12
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "run()",
+                    "kind": 5,
+                    "kindName": "Method",
+                    "detail": "public",
+                    "range": {
+                      "start": {
+                        "line": 9,
+                        "character": 4
+                      },
+                      "end": {
+                        "line": 21,
+                        "character": 5
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 9,
+                        "character": 20
+                      },
+                      "end": {
+                        "line": 9,
+                        "character": 23
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

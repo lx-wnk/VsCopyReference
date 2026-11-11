@@ -1,0 +1,1369 @@
+{
+  "provider": "js",
+  "vscodeVersion": "1.145.1",
+  "definitionsImmediate": [
+    {
+      "file": "src/use.js",
+      "token": "round",
+      "position": {
+        "line": 3,
+        "character": 0
+      },
+      "results": []
+    },
+    {
+      "file": "src/use.js",
+      "token": "Calc",
+      "position": {
+        "line": 4,
+        "character": 4
+      },
+      "results": []
+    },
+    {
+      "file": "src/use.js",
+      "token": "add",
+      "position": {
+        "line": 4,
+        "character": 11
+      },
+      "results": []
+    },
+    {
+      "file": "src/use.js",
+      "token": "cfg",
+      "position": {
+        "line": 5,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/use.js",
+          "targetRange": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 0,
+              "character": 56
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 0,
+              "character": 22
+            },
+            "end": {
+              "line": 0,
+              "character": 25
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 5,
+              "character": 0
+            },
+            "end": {
+              "line": 5,
+              "character": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "b",
+      "position": {
+        "line": 5,
+        "character": 6
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 8,
+              "character": 26
+            },
+            "end": {
+              "line": 8,
+              "character": 30
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 8,
+              "character": 26
+            },
+            "end": {
+              "line": 8,
+              "character": 27
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 5,
+              "character": 6
+            },
+            "end": {
+              "line": 5,
+              "character": 7
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "withLocal",
+      "position": {
+        "line": 6,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 10,
+              "character": 0
+            },
+            "end": {
+              "line": 13,
+              "character": 1
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 10,
+              "character": 16
+            },
+            "end": {
+              "line": 10,
+              "character": 25
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 6,
+              "character": 0
+            },
+            "end": {
+              "line": 6,
+              "character": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "tinyFn",
+      "position": {
+        "line": 7,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "node_modules/tiny/index.js",
+          "targetRange": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 0,
+              "character": 27
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 0,
+              "character": 16
+            },
+            "end": {
+              "line": 0,
+              "character": 22
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 7,
+              "character": 0
+            },
+            "end": {
+              "line": 7,
+              "character": 6
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "definitionsAfterPolling": [
+    {
+      "file": "src/use.js",
+      "token": "round",
+      "position": {
+        "line": 3,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 2,
+              "character": 1
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 0,
+              "character": 16
+            },
+            "end": {
+              "line": 0,
+              "character": 21
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 3,
+              "character": 0
+            },
+            "end": {
+              "line": 3,
+              "character": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "Calc",
+      "position": {
+        "line": 4,
+        "character": 4
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 4,
+              "character": 0
+            },
+            "end": {
+              "line": 6,
+              "character": 1
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 4,
+              "character": 13
+            },
+            "end": {
+              "line": 4,
+              "character": 17
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 4,
+              "character": 4
+            },
+            "end": {
+              "line": 4,
+              "character": 8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "add",
+      "position": {
+        "line": 4,
+        "character": 11
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 5,
+              "character": 2
+            },
+            "end": {
+              "line": 5,
+              "character": 10
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 5,
+              "character": 2
+            },
+            "end": {
+              "line": 5,
+              "character": 5
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 4,
+              "character": 11
+            },
+            "end": {
+              "line": 4,
+              "character": 14
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "cfg",
+      "position": {
+        "line": 5,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 8,
+              "character": 0
+            },
+            "end": {
+              "line": 8,
+              "character": 35
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 8,
+              "character": 13
+            },
+            "end": {
+              "line": 8,
+              "character": 16
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 5,
+              "character": 0
+            },
+            "end": {
+              "line": 5,
+              "character": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "b",
+      "position": {
+        "line": 5,
+        "character": 6
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 8,
+              "character": 26
+            },
+            "end": {
+              "line": 8,
+              "character": 30
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 8,
+              "character": 26
+            },
+            "end": {
+              "line": 8,
+              "character": 27
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 5,
+              "character": 6
+            },
+            "end": {
+              "line": 5,
+              "character": 7
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "withLocal",
+      "position": {
+        "line": 6,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 10,
+              "character": 0
+            },
+            "end": {
+              "line": 13,
+              "character": 1
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 10,
+              "character": 16
+            },
+            "end": {
+              "line": 10,
+              "character": 25
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 6,
+              "character": 0
+            },
+            "end": {
+              "line": 6,
+              "character": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "tinyFn",
+      "position": {
+        "line": 7,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "node_modules/tiny/index.js",
+          "targetRange": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 0,
+              "character": 27
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 0,
+              "character": 16
+            },
+            "end": {
+              "line": 0,
+              "character": 22
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 7,
+              "character": 0
+            },
+            "end": {
+              "line": 7,
+              "character": 6
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "definitionsAfterWait": [
+    {
+      "file": "src/use.js",
+      "token": "round",
+      "position": {
+        "line": 3,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 2,
+              "character": 1
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 0,
+              "character": 16
+            },
+            "end": {
+              "line": 0,
+              "character": 21
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 3,
+              "character": 0
+            },
+            "end": {
+              "line": 3,
+              "character": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "Calc",
+      "position": {
+        "line": 4,
+        "character": 4
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 4,
+              "character": 0
+            },
+            "end": {
+              "line": 6,
+              "character": 1
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 4,
+              "character": 13
+            },
+            "end": {
+              "line": 4,
+              "character": 17
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 4,
+              "character": 4
+            },
+            "end": {
+              "line": 4,
+              "character": 8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "add",
+      "position": {
+        "line": 4,
+        "character": 11
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 5,
+              "character": 2
+            },
+            "end": {
+              "line": 5,
+              "character": 10
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 5,
+              "character": 2
+            },
+            "end": {
+              "line": 5,
+              "character": 5
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 4,
+              "character": 11
+            },
+            "end": {
+              "line": 4,
+              "character": 14
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "cfg",
+      "position": {
+        "line": 5,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 8,
+              "character": 0
+            },
+            "end": {
+              "line": 8,
+              "character": 35
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 8,
+              "character": 13
+            },
+            "end": {
+              "line": 8,
+              "character": 16
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 5,
+              "character": 0
+            },
+            "end": {
+              "line": 5,
+              "character": 3
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "b",
+      "position": {
+        "line": 5,
+        "character": 6
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 8,
+              "character": 26
+            },
+            "end": {
+              "line": 8,
+              "character": 30
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 8,
+              "character": 26
+            },
+            "end": {
+              "line": 8,
+              "character": 27
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 5,
+              "character": 6
+            },
+            "end": {
+              "line": 5,
+              "character": 7
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "withLocal",
+      "position": {
+        "line": 6,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "src/math.js",
+          "targetRange": {
+            "start": {
+              "line": 10,
+              "character": 0
+            },
+            "end": {
+              "line": 13,
+              "character": 1
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 10,
+              "character": 16
+            },
+            "end": {
+              "line": 10,
+              "character": 25
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 6,
+              "character": 0
+            },
+            "end": {
+              "line": 6,
+              "character": 9
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "src/use.js",
+      "token": "tinyFn",
+      "position": {
+        "line": 7,
+        "character": 0
+      },
+      "results": [
+        {
+          "type": "LocationLink",
+          "targetUri": "node_modules/tiny/index.js",
+          "targetRange": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 0,
+              "character": 27
+            }
+          },
+          "targetSelectionRange": {
+            "start": {
+              "line": 0,
+              "character": 16
+            },
+            "end": {
+              "line": 0,
+              "character": 22
+            }
+          },
+          "originSelectionRange": {
+            "start": {
+              "line": 7,
+              "character": 0
+            },
+            "end": {
+              "line": 7,
+              "character": 6
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "symbols": [
+    {
+      "file": "src/math.js",
+      "immediate": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "round",
+            "kind": 11,
+            "kindName": "Function",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 0,
+                "character": 16
+              },
+              "end": {
+                "line": 0,
+                "character": 21
+              }
+            },
+            "children": []
+          },
+          {
+            "type": "DocumentSymbol",
+            "name": "Calc",
+            "kind": 4,
+            "kindName": "Class",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 4,
+                "character": 0
+              },
+              "end": {
+                "line": 6,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 4,
+                "character": 13
+              },
+              "end": {
+                "line": 4,
+                "character": 17
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "add",
+                "kind": 5,
+                "kindName": "Method",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 2
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 10
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 5,
+                    "character": 2
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 5
+                  }
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "DocumentSymbol",
+            "name": "cfg",
+            "kind": 12,
+            "kindName": "Variable",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 8,
+                "character": 13
+              },
+              "end": {
+                "line": 8,
+                "character": 34
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 8,
+                "character": 13
+              },
+              "end": {
+                "line": 8,
+                "character": 16
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "a",
+                "kind": 6,
+                "kindName": "Property",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 8,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 8,
+                    "character": 32
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 8,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 8,
+                    "character": 22
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "b",
+                    "kind": 6,
+                    "kindName": "Property",
+                    "detail": "",
+                    "range": {
+                      "start": {
+                        "line": 8,
+                        "character": 26
+                      },
+                      "end": {
+                        "line": 8,
+                        "character": 30
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 8,
+                        "character": 26
+                      },
+                      "end": {
+                        "line": 8,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "DocumentSymbol",
+            "name": "withLocal",
+            "kind": 11,
+            "kindName": "Function",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 10,
+                "character": 0
+              },
+              "end": {
+                "line": 13,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 10,
+                "character": 16
+              },
+              "end": {
+                "line": 10,
+                "character": 25
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "inner",
+                "kind": 12,
+                "kindName": "Variable",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 11,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 11,
+                    "character": 17
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 11,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 11,
+                    "character": 13
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "final": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "round",
+            "kind": 11,
+            "kindName": "Function",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 2,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 0,
+                "character": 16
+              },
+              "end": {
+                "line": 0,
+                "character": 21
+              }
+            },
+            "children": []
+          },
+          {
+            "type": "DocumentSymbol",
+            "name": "Calc",
+            "kind": 4,
+            "kindName": "Class",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 4,
+                "character": 0
+              },
+              "end": {
+                "line": 6,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 4,
+                "character": 13
+              },
+              "end": {
+                "line": 4,
+                "character": 17
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "add",
+                "kind": 5,
+                "kindName": "Method",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 2
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 10
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 5,
+                    "character": 2
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 5
+                  }
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "DocumentSymbol",
+            "name": "cfg",
+            "kind": 12,
+            "kindName": "Variable",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 8,
+                "character": 13
+              },
+              "end": {
+                "line": 8,
+                "character": 34
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 8,
+                "character": 13
+              },
+              "end": {
+                "line": 8,
+                "character": 16
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "a",
+                "kind": 6,
+                "kindName": "Property",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 8,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 8,
+                    "character": 32
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 8,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 8,
+                    "character": 22
+                  }
+                },
+                "children": [
+                  {
+                    "type": "DocumentSymbol",
+                    "name": "b",
+                    "kind": 6,
+                    "kindName": "Property",
+                    "detail": "",
+                    "range": {
+                      "start": {
+                        "line": 8,
+                        "character": 26
+                      },
+                      "end": {
+                        "line": 8,
+                        "character": 30
+                      }
+                    },
+                    "selectionRange": {
+                      "start": {
+                        "line": 8,
+                        "character": 26
+                      },
+                      "end": {
+                        "line": 8,
+                        "character": 27
+                      }
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "DocumentSymbol",
+            "name": "withLocal",
+            "kind": 11,
+            "kindName": "Function",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 10,
+                "character": 0
+              },
+              "end": {
+                "line": 13,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 10,
+                "character": 16
+              },
+              "end": {
+                "line": 10,
+                "character": 25
+              }
+            },
+            "children": [
+              {
+                "type": "DocumentSymbol",
+                "name": "inner",
+                "kind": 12,
+                "kindName": "Variable",
+                "detail": "",
+                "range": {
+                  "start": {
+                    "line": 11,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 11,
+                    "character": 17
+                  }
+                },
+                "selectionRange": {
+                  "start": {
+                    "line": 11,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 11,
+                    "character": 13
+                  }
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "file": "node_modules/tiny/index.js",
+      "immediate": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "tinyFn",
+            "kind": 11,
+            "kindName": "Function",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 27
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 0,
+                "character": 16
+              },
+              "end": {
+                "line": 0,
+                "character": 22
+              }
+            },
+            "children": []
+          }
+        ]
+      },
+      "final": {
+        "elapsedMs": 0,
+        "symbols": [
+          {
+            "type": "DocumentSymbol",
+            "name": "tinyFn",
+            "kind": 11,
+            "kindName": "Function",
+            "detail": "",
+            "range": {
+              "start": {
+                "line": 0,
+                "character": 0
+              },
+              "end": {
+                "line": 0,
+                "character": 27
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 0,
+                "character": 16
+              },
+              "end": {
+                "line": 0,
+                "character": 22
+              }
+            },
+            "children": []
+          }
+        ]
+      }
+    }
+  ]
+}
