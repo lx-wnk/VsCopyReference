@@ -4,6 +4,10 @@
   "description": "Copy a fully qualified reference to the PHP, JavaScript or TypeScript symbol under the cursor, like PhpStorm's Copy Reference.",
   "version": "0.1.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lx-wnk/VsCopyReference.git"
+  },
   "icon": "media/icon.png",
   "categories": [
     "Other"
